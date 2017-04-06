@@ -10,21 +10,21 @@ ClimateZone::ClimateZone(int _named, int thPin,  Vector<WaterZone> zones)
   named  = _named;
   _thPin = thPin;
   waterZones = zones;
-  
+
   ClimateZone::initSensor();
 }
 
 void ClimateZone::check()
 {
   ClimateZone::getTHValues();
-  
+
   for (size_t i = 0; i < waterZones.size(); ++i) {
     Serial.print("  ");
     Serial.print("Climate Zone ");
     Serial.print(named);
     Serial.print(" checking Water Zone: ");
     Serial.println(waterZones[i].named);
-    waterZones[i].check(temprature);
+    waterZones[i].check(temprature, humidity);
   }
 }
 
@@ -42,9 +42,9 @@ void ClimateZone::initSensor()
 
 void ClimateZone::getTHValues()
 {
-  sensors_event_t event;  
+  sensors_event_t event;
   dht.temperature().getEvent(&event);
-  
+
   if (isnan(event.temperature)) {
     Serial.println("  Error reading temperature!");
   }

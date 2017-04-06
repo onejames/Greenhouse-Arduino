@@ -8,7 +8,7 @@ class WaterZone
   public:
     WaterZone(int named, int sensorPin, int waterPin, int threshold);
     int named;
-    void check(int degF);
+    void check(int degF, int humidity);
   private:
     int _sensorPin;
     int _waterPin;
@@ -16,7 +16,7 @@ class WaterZone
     bool _status;
     void waterOn();
     void waterOff();
-    int adjustValue(int sensorValue, int degF);
+    int adjustValue(int sensorValue, int degF, int humidity);
     int readAnalog(int pin);
 };
 

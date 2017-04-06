@@ -9,20 +9,22 @@
 class Greenhouse
 {
   public:
-    init(int named, Vector<ClimateZone> zones, int batteryVoltagePin = 0, int solarVoltagePin = 0);
-    int   named;
-    float batteryVoltage;
-    float solarVoltage;
-    void  check();
-    int   getBatteryPercentage();
-    int   getSolarPercentage();
+    void   init(int named, Vector<ClimateZone> zones, int batteryVoltagePin = 0, int solarVoltagePin = 0);
+    int    named;
+    bool   inited = false;
+    float  batteryVoltage;
+    float  solarVoltage;
+    void   check();
+    int    getBatteryPercentage();
+    int    getSolarPercentage();
+    String status();
   private:
-    int _batteryVoltagePin;
-    int _solarVoltagePin;
+    int  _batteryVoltagePin;
+    int  _solarVoltagePin;
     Vector<ClimateZone> climateZones;
-    void  getStatus();
+    void  readSensors();
     float getOriginalVoltage(float vOut, int r1, int r2);
-    int readAnalog(int pin);
+    int   readAnalog(int pin);
 };
 
 #endif
