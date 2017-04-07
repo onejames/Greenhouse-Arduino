@@ -10,14 +10,16 @@ class WaterZone
     int named;
     void check(int degF, int humidity);
   private:
-    int _sensorPin;
-    int _waterPin;
-    bool _threshold;
-    bool _status;
-    void waterOn();
-    void waterOff();
-    int adjustValue(int sensorValue, int degF, int humidity);
-    int readAnalog(int pin);
+    int   _sensorPin;
+    int   _waterPin;
+    bool  _threshold;
+    bool  _status;
+    int   _microtimeStarted;
+    int   _microtimeStopped;
+    void   waterOn();
+    void   waterOff();
+    int    adjustValue(int sensorValue, int degF, int humidity);
+    int    readAnalog(int pin);
 };
 
 #endif

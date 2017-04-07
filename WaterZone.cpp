@@ -4,6 +4,8 @@
 
 const int MIN_DEG_TO_WATER = 40;
 const int WATER_SENSOR_MAX_VALUE = 1024;
+const int MAX_WATER_RUN_MILLS    = 300000; // 5 min
+const int WATER_DELAY_MILLS      = 300000; // 5 min
 
 WaterZone::WaterZone(int _named, int sensorPin, int waterPin, int threshold)
 {
@@ -20,7 +22,15 @@ WaterZone::WaterZone(int _named, int sensorPin, int waterPin, int threshold)
 
 void WaterZone::check(int degF, int humidity)
 {
-    if( degF < MIN_DEG_TO_WATER) {
+
+    if(_status == true && (_microtimeStarted + MAX_WATER_RUN_MILLS) < millis() ) {
+        waterOff();
+        return void();
+    } else if(_status == false && (_microtimeStopped + WATER_DELAY_MILLS) > millis() ) {
+        return void();
+    }
+
+    if( degF < MIN_DEG_TO_WATER && _status == false) {
         Serial.print("        ");
         Serial.print(named);
         Serial.println(" Zone is to cold to water.");
@@ -55,6 +65,8 @@ void WaterZone::waterOn()
 {
     digitalWrite(_waterPin, HIGH);
     _status = true;
+    _microtimeStopped = 0;
+    _microtimeStarted = millis();
 
     Serial.print("    ");
     Serial.print(named);
@@ -65,6 +77,8 @@ void WaterZone::waterOff()
 {
     digitalWrite(_waterPin, LOW);
     _status = false;
+    _microtimeStarted = 0;
+    _microtimeStopped = millis();
 
     Serial.print("    ");
     Serial.print(named);
