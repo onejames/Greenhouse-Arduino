@@ -51,7 +51,7 @@ void initGreenhouse()
 {
   Vector<WaterZone> cz1Zones;
   cz1Zones.push_back(WaterZone(1, A0, 4, 512));
-  cz1Zones.push_back(WaterZone(2, A1, 7, 512));
+//  cz1Zones.push_back(/WaterZone(2, 6, 7, 512));
 
   Vector<ClimateZone> climateZones1;
   climateZones1.push_back(ClimateZone(1, 11, cz1Zones));

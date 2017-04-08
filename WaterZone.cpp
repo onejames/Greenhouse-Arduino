@@ -4,8 +4,10 @@
 
 const int MIN_DEG_TO_WATER = 40;
 const int WATER_SENSOR_MAX_VALUE = 1024;
-const int MAX_WATER_RUN_MILLS    = 300000; // 5 min
-const int WATER_DELAY_MILLS      = 300000; // 5 min
+//const int MAX_WATER_RUN_MILLS    = 300000; // 5 min/
+const int MAX_WATER_RUN_MILLS    = 30000; // 30 sec
+//const int WATER_DELAY_MILLS      = 300000; // 5 min/
+const int WATER_DELAY_MILLS      = 30000; // 30 sec
 
 WaterZone::WaterZone(int _named, int sensorPin, int waterPin, int threshold)
 {
@@ -23,14 +25,18 @@ WaterZone::WaterZone(int _named, int sensorPin, int waterPin, int threshold)
 void WaterZone::check(int degF, int humidity)
 {
 
-    if(_status == true && (_microtimeStarted + MAX_WATER_RUN_MILLS) < millis() ) {
-        waterOff();
-        return void();
-    } else if(_status == false && (_microtimeStopped + WATER_DELAY_MILLS) > millis() ) {
-        return void();
-    }
+//    if(_status == true && (_microtimeStarted + MAX_WATER_RUN_MILLS) < millis() ) {
+//        Serial.println("Water on time excedded, turning off for now.");
+//        waterOff();
+//        return void();
+//    } else if(_status == false && (_microtimeStopped + WATER_DELAY_MILLS) > millis() ) {
+//        Serial.println("Watering in paused mode");
+//        Serial.println(millis());
+//        Serial.println(_microtimeStopped + WATER_DELAY_MILLS);
+//        return void();
+//    }
 
-    if( degF < MIN_DEG_TO_WATER && _status == false) {
+    if( _status == false && degF != 0 && degF < MIN_DEG_TO_WATER ) {
         Serial.print("        ");
         Serial.print(named);
         Serial.println(" Zone is to cold to water.");
@@ -48,9 +54,13 @@ void WaterZone::check(int degF, int humidity)
     Serial.print(" Moisture Sensor value: ");
     Serial.println(sensorValue);
 
-    int adjustedValue = adjustValue(sensorValue, degF, humidity);
+    int adjustedValue = sensorValue;
 
-    if( sensorValue < _threshold ) {
+    if(degF != 0 && humidity != 0) {
+        int adjustedValue = adjustValue(sensorValue, degF, humidity);
+    }
+
+    if( adjustedValue < _threshold ) {
         if( _status != true ) {
             waterOn();
         }

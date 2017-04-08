@@ -47,6 +47,7 @@ void ClimateZone::getTHValues()
 
   if (isnan(event.temperature)) {
     Serial.println("  Error reading temperature!");
+    temprature = 0;
   }
   else {
     Serial.print("  ");
@@ -60,6 +61,7 @@ void ClimateZone::getTHValues()
   dht.humidity().getEvent(&event);
   if (isnan(event.relative_humidity)) {
     Serial.println("  Error reading humidity!");
+    humidity = 0;
   }
   else {
     Serial.print("  ");

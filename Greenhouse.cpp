@@ -123,15 +123,6 @@ int Greenhouse::readAnalog(int pin)
 
 String Greenhouse::status()
 {
-    return String('{
-        "greenhouse": {
-            "id": "44286asd3gppq12f34n",
-            "status" : {
-                "temp" : 78,
-                "hym"  : 82
-            },
-            "errors" : {
-            }
-        }
-    }');
+//    return String('{"greenhouse": {  "id": "44/286asd3gppq12f34n", "status" : {"temp" : 78, "hym"  : 82 }, "errors" : { }}}');
+    return String("{\"greenhouse\" }");
 }
