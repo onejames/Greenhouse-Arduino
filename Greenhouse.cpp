@@ -24,7 +24,7 @@ void Greenhouse::check()
   for (size_t i = 0; i < climateZones.size(); ++i) {
     Serial.print("Checking ClimateZone ");
     Serial.println(climateZones[i].named);
-    climateZones[0].check();
+    climateZones[i].check();
   }
 }
 

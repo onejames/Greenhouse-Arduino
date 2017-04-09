@@ -1,17 +1,20 @@
+
+// DHT sensor library - Version: Latest
+#include <DHT.h>
+#include <DHT_U.h>
+
 #include "Arduino.h"
 #include "Vector.h"
 #include "ClimateZone.h"
 
-DHT_Unified dht(11, DHT11);
-
-ClimateZone::ClimateZone(int _named, int thPin,  Vector<WaterZone> zones)
+ClimateZone::ClimateZone(int _named, int thPin,  Vector<WaterZone> zones) : _dht(thPin, DHT11)
 // : _dht(_thPin, DHT11)
 {
-  named  = _named;
-  _thPin = thPin;
-  waterZones = zones;
+   named      = _named;
+   waterZones =  zones;
+  _thPin      =  thPin;
 
-  ClimateZone::initSensor();
+  ClimateZone::initSensor(thPin);
 }
 
 void ClimateZone::check()
@@ -30,10 +33,10 @@ void ClimateZone::check()
 
 void ClimateZone::initSensor()
 {
-  dht.begin();
+  _dht.begin();
   sensor_t sensor;
-  dht.temperature().getSensor(&sensor);
-  dht.humidity().getSensor(&sensor);
+  _dht.temperature().getSensor(&sensor);
+  _dht.humidity().getSensor(&sensor);
 
   Serial.print("DHT on pin ");
   Serial.print(_thPin);
@@ -43,7 +46,7 @@ void ClimateZone::initSensor()
 void ClimateZone::getTHValues()
 {
   sensors_event_t event;
-  dht.temperature().getEvent(&event);
+  _dht.temperature().getEvent(&event);
 
   if (isnan(event.temperature)) {
     Serial.println("  Error reading temperature!");
@@ -58,7 +61,7 @@ void ClimateZone::getTHValues()
     Serial.println(" *F");
   }
 
-  dht.humidity().getEvent(&event);
+  _dht.humidity().getEvent(&event);
   if (isnan(event.relative_humidity)) {
     Serial.println("  Error reading humidity!");
     humidity = 0;

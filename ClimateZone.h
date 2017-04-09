@@ -3,10 +3,10 @@
 
 #include "WaterZone.h"
 
-// Adafruit Unified Sensor - Version: Latest 
+// Adafruit Unified Sensor - Version: Latest
 #include <Adafruit_Sensor.h>
 
-// DHT sensor library - Version: Latest 
+// DHT sensor library - Version: Latest
 #include <DHT.h>
 #include <DHT_U.h>
 
@@ -16,13 +16,14 @@
 class ClimateZone
 {
   public:
-    ClimateZone(int named, int thPin, Vector<WaterZone> zones);
+    ClimateZone(int named, int thPin, Vector<WaterZone> zones) : _dht(thPin, DHT11);
     int  named;
     int  temprature;
     int  humidity;
     void check();
   private:
     int  _thPin;
+    DHT_Unified _dht;
     bool _status;
     Vector<WaterZone> waterZones;
     void  initSensor();

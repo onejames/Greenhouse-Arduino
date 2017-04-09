@@ -36,12 +36,12 @@ void WaterZone::check(int degF, int humidity)
 //        return void();
 //    }
 
-    if( _status == false && degF != 0 && degF < MIN_DEG_TO_WATER ) {
-        Serial.print("        ");
-        Serial.print(named);
-        Serial.println(" Zone is to cold to water.");
-        return void();
-    }
+//    if( _status == false && degF != 0 && degF < MIN_DEG_TO_WATER ) {
+//        Serial.print("        ");
+//        Serial.print(named);
+//        Serial.println(" Zone is to cold to water.");
+//        return void();
+//    }
 
     // int sensorValue = readAnalogreadAnalog(_sensorPin);
     int sensorValue = 0;
@@ -56,9 +56,9 @@ void WaterZone::check(int degF, int humidity)
 
     int adjustedValue = sensorValue;
 
-    if(degF != 0 && humidity != 0) {
-        int adjustedValue = adjustValue(sensorValue, degF, humidity);
-    }
+//    if(degF != 0 && humidity != 0) {
+//        int adjustedValue = adjustValue(sensorValue, degF, humidity);
+//    }
 
     if( adjustedValue < _threshold ) {
         if( _status != true ) {
