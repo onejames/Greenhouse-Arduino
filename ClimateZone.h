@@ -16,18 +16,18 @@
 class ClimateZone
 {
   public:
-    ClimateZone(int named, int thPin, Vector<WaterZone> zones) : _dht(thPin, DHT11);
+    ClimateZone(int named, int thPin, Vector<WaterZone> zones);
     int  named;
     int  temprature;
     int  humidity;
     void check();
   private:
     int  _thPin;
-    DHT_Unified _dht;
+    DHT_Unified* _dht;
     bool _status;
     Vector<WaterZone> waterZones;
     void  initSensor();
-    void  getTHValues();
+    void  readDHT();
 };
 
 #endif

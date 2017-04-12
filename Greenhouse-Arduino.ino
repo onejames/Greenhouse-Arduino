@@ -65,6 +65,7 @@ void initGreenhouse()
     climateZones.push_back(ClimateZone(1, 11, cz1Zones));
 
     // climateZones.push_back(ClimateZone(Coldframe, 10, cz1Zones));
+    climateZones.push_back(ClimateZone(3, 10, cz1Zones));
     // climateZones.push_back(ClimateZone(Outside, 9, cz1Zones));
 
     greenhouse.init(1, climateZones, A6, A7); // bat, solar

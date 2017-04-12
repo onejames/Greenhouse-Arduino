@@ -7,19 +7,21 @@
 #include "Vector.h"
 #include "ClimateZone.h"
 
-ClimateZone::ClimateZone(int _named, int thPin,  Vector<WaterZone> zones) : _dht(thPin, DHT11)
+ClimateZone::ClimateZone(int _named, int thPin,  Vector<WaterZone> zones)
 // : _dht(_thPin, DHT11)
 {
    named      = _named;
    waterZones =  zones;
   _thPin      =  thPin;
 
-  ClimateZone::initSensor(thPin);
+  _dht = new DHT_Unified(thPin, DHT11);
+
+  ClimateZone::initSensor();
 }
 
 void ClimateZone::check()
 {
-  ClimateZone::getTHValues();
+  ClimateZone::readDHT();
 
   for (size_t i = 0; i < waterZones.size(); ++i) {
     Serial.print("  ");
@@ -33,20 +35,20 @@ void ClimateZone::check()
 
 void ClimateZone::initSensor()
 {
-  _dht.begin();
+  _dht->begin();
   sensor_t sensor;
-  _dht.temperature().getSensor(&sensor);
-  _dht.humidity().getSensor(&sensor);
+  _dht->temperature().getSensor(&sensor);
+  _dht->humidity().getSensor(&sensor);
 
   Serial.print("DHT on pin ");
   Serial.print(_thPin);
   Serial.println(" started");
 }
 
-void ClimateZone::getTHValues()
+void ClimateZone::readDHT()
 {
   sensors_event_t event;
-  _dht.temperature().getEvent(&event);
+  _dht->temperature().getEvent(&event);
 
   if (isnan(event.temperature)) {
     Serial.println("  Error reading temperature!");
@@ -61,7 +63,7 @@ void ClimateZone::getTHValues()
     Serial.println(" *F");
   }
 
-  _dht.humidity().getEvent(&event);
+  _dht->humidity().getEvent(&event);
   if (isnan(event.relative_humidity)) {
     Serial.println("  Error reading humidity!");
     humidity = 0;
