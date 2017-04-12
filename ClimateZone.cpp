@@ -7,9 +7,10 @@
 #include "Vector.h"
 #include "ClimateZone.h"
 
-ClimateZone::ClimateZone(int _named, int thPin,  Vector<WaterZone> zones)
+ClimateZone::ClimateZone(int _id, int _named, int thPin,  Vector<WaterZone> zones)
 // : _dht(_thPin, DHT11)
 {
+   id         = _id;
    named      = _named;
    waterZones =  zones;
   _thPin      =  thPin;
@@ -76,4 +77,23 @@ void ClimateZone::readDHT()
     Serial.print(humidity);
     Serial.println("%");
   }
+}
+
+String ClimateZone::getJson()
+{
+    String json = String("{ 'id': " + id);
+    json += ", 'temprature': " + temprature;
+    json += ", 'humidity':" + humidity;
+
+    json += ", 'waterZones': {";
+    for (size_t i = 0; i < waterZones.size(); ++i) {
+      json += waterZones[i].getJson();
+      if( i + 1 != waterZones.size() ) {
+          json += ", ";
+      }
+    }
+
+    json += "} }";
+
+    return json;
 }

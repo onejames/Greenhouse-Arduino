@@ -16,11 +16,13 @@
 class ClimateZone
 {
   public:
-    ClimateZone(int named, int thPin, Vector<WaterZone> zones);
+    ClimateZone(int _id, int named, int thPin, Vector<WaterZone> zones);
+    int  id;
     int  named;
     int  temprature;
     int  humidity;
     void check();
+    String getJson();
   private:
     int  _thPin;
     DHT_Unified* _dht;

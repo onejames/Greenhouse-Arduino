@@ -48,27 +48,28 @@ void initGreenhouse()
     /* WATER ZONES */
     Vector<WaterZone> cz1Zones;
 
-    // cz1Zones.push_back(WaterZone("Left Primary", A0, 4, 512));
-    cz1Zones.push_back(WaterZone(1, A0, 4, 512));
+    // cz1Zones.push_back(WaterZone(1, "Left Primary", A0, 4, 512));
+    cz1Zones.push_back(WaterZone(1, 1, A0, 4, 512));
 
-    cz1Zones.push_back(WaterZone(2, A0, 7, 512));
-    // cz1Zones.push_back(WaterZone("Right Primary", A1, 7, 512));
+    cz1Zones.push_back(WaterZone(2, 2, A0, 7, 512));
+    // cz1Zones.push_back(WaterZone(2, "Right Primary", A1, 7, 512));
 
     // Vector<WaterZone> cz2Zones;
-    // cz2Zones.push_back(WaterZone(3, A2, 4, 512));
-    // cz2Zones.push_back(WaterZone("Coldframe", A2, 4, 512));
+    // cz2Zones.push_back(WaterZone(3, 3, A2, 4, 512));
+    // cz2Zones.push_back(WaterZone(3, "Coldframe", A2, 4, 512));
 
     /* CLIMATE ZONES*/
     Vector<ClimateZone> climateZones;
 
-    // climateZones.push_back(ClimateZone("Main", 11, cz1Zones));
-    climateZones.push_back(ClimateZone(1, 11, cz1Zones));
+    // climateZones.push_back(ClimateZone(1, "Main", 11, cz1Zones));
+    climateZones.push_back(ClimateZone(1, 1, 11, cz1Zones));
 
-    // climateZones.push_back(ClimateZone(Coldframe, 10, cz1Zones));
-    climateZones.push_back(ClimateZone(3, 10, cz1Zones));
-    // climateZones.push_back(ClimateZone(Outside, 9, cz1Zones));
+    // climateZones.push_back(ClimateZone(2, Coldframe, 10, cz1Zones));
+    // climateZones.push_back(ClimateZone(2, 3, 10, cz1Zones));
+    // climateZones.push_back(ClimateZone(3, Outside, 9, cz1Zones));
 
-    greenhouse.init(1, climateZones, A6, A7); // bat, solar
+    greenhouse.init(1, 1, climateZones, A6, A7); // bat, solar
+    // greenhouse.init(1, "Laster Greenhouse", climateZones, A6, A7); // bat, solar
 
     Serial.println("");
     Serial.println("...Ready");
@@ -77,7 +78,7 @@ void initGreenhouse()
 
 void sendStatus()
 {
-    String json = greenhouse.status();
+    String json = greenhouse.getJson();
 
     Serial.println("");
     Serial.println("");

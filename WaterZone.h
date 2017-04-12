@@ -6,14 +6,17 @@
 class WaterZone
 {
   public:
-    WaterZone(int named, int sensorPin, int waterPin, int threshold);
-    int named;
-    void check(int degF, int humidity);
+    WaterZone(int _id, int named, int sensorPin, int waterPin, int threshold);
+    int    id;
+    int    named;
+    void   check(int degF, int humidity);
+    String getJson();
   private:
     int   _sensorPin;
     int   _waterPin;
     bool  _threshold;
     bool  _status;
+    int   _sensorValue;
     int   _microtimeStarted;
     int   _microtimeStopped;
     void   waterOn();

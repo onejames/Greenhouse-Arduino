@@ -9,7 +9,8 @@
 class Greenhouse
 {
   public:
-    void   init(int named, Vector<ClimateZone> zones, int batteryVoltagePin = 0, int solarVoltagePin = 0);
+    void   init(int _id,int named, Vector<ClimateZone> zones, int batteryVoltagePin = 0, int solarVoltagePin = 0);
+    int    id;
     int    named;
     bool   inited = false;
     float  batteryVoltage;
@@ -17,7 +18,7 @@ class Greenhouse
     void   check();
     int    getBatteryPercentage();
     int    getSolarPercentage();
-    String status();
+    String getJson();
   private:
     int  _batteryVoltagePin;
     int  _solarVoltagePin;

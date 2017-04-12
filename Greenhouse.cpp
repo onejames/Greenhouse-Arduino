@@ -5,8 +5,9 @@
 const float SOLAR_PANEL_MAX_V = 15.8;
 const int ANALOG_MAX_VALUE = 1023;
 
-void Greenhouse::init(int _named, Vector<ClimateZone> zones, int batteryVoltagePin, int solarVoltagePin)
+void Greenhouse::init(int _id, int _named, Vector<ClimateZone> zones, int batteryVoltagePin, int solarVoltagePin)
 {
+   id                = _id;
    named             = _named;
    climateZones      = zones;
   _batteryVoltagePin = batteryVoltagePin;
@@ -121,8 +122,23 @@ int Greenhouse::readAnalog(int pin)
   return sensorValue;
 }
 
-String Greenhouse::status()
+String Greenhouse::getJson()
 {
-//    return String('{"greenhouse": {  "id": "44/286asd3gppq12f34n", "status" : {"temp" : 78, "hym"  : 82 }, "errors" : { }}}');
-    return String("{\"greenhouse\" }");
+    String json = String("{ 'id': " + id);
+    json += ", 'batteryVoltage': ";
+    json += batteryVoltage;
+    json += ", 'solarVoltage':";
+    json += solarVoltage;
+    json += ", 'climateZones': {";
+
+    for (size_t i = 0; i < climateZones.size(); ++i) {
+      json += climateZones[i].getJson();
+      if( i + 1 != climateZones.size() ) {
+          json += ", ";
+      }
+    }
+
+    json += "} }";
+
+    return json;
 }

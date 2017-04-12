@@ -9,8 +9,9 @@ const int MAX_WATER_RUN_MILLS    = 30000; // 30 sec
 //const int WATER_DELAY_MILLS      = 300000; // 5 min/
 const int WATER_DELAY_MILLS      = 30000; // 30 sec
 
-WaterZone::WaterZone(int _named, int sensorPin, int waterPin, int threshold)
+WaterZone::WaterZone(int _id, int _named, int sensorPin, int waterPin, int threshold)
 {
+     id           = _id;
      named        = _named;
     _sensorPin    =  sensorPin;
     _waterPin     =  waterPin;
@@ -48,6 +49,8 @@ void WaterZone::check(int degF, int humidity)
     if( digitalRead(_sensorPin) == HIGH ) {
         sensorValue = 987;
     }
+
+    _sensorValue = sensorValue;
 
     Serial.print("    ");
     Serial.print(named);
@@ -116,7 +119,7 @@ int WaterZone::adjustValue(int sensorValue, int degF, int humidity)
     return adjusted;
 }
 
-int    WaterZone::readAnalog(int pin)
+int WaterZone::readAnalog(int pin)
 {
     int sensorValue = 0;
 
@@ -128,4 +131,14 @@ int    WaterZone::readAnalog(int pin)
     sensorValue = sensorValue / 10;
 
     return sensorValue;
+}
+
+String WaterZone::getJson()
+{
+    String json = String("{ 'id': " + id);
+    json += ", 'status': " + _status;
+    json += ", 'sensorValue':" + _sensorValue;
+    json += "}";
+
+    return json;
 }
