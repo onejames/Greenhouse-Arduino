@@ -19,7 +19,7 @@ class ClimateZone
     ClimateZone(int _id, int named, int thPin, Vector<WaterZone> zones);
     int  id;
     int  named;
-    int  temprature;
+    int  temperature;
     int  humidity;
     void check();
     String getJson();

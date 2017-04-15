@@ -1,0 +1,38 @@
+{
+    "id": "45",
+    "batteryVoltage": "14",
+    "solarVoltage":"16",
+    "climateZones": [
+        {
+            "id": "1",
+            "temperature": "80",
+            "humidity":"75",
+            "waterZones": [
+                {
+                    "id": "1",
+                    "status": "true",
+                    "sensorValue":"784"
+                },
+                {
+                    "id": "2",
+                    "status": "true",
+                    "sensorValue":"745"
+                }
+            ]
+
+        },
+        {
+            "id": "2",
+            "temperature": "78",
+            "humidity":"74",
+            "waterZones": [
+                {
+                    "id": "3",
+                    "status": "false",
+                    "sensorValue":"300"
+                }
+            ]
+
+        }
+    ]
+}

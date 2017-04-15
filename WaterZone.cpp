@@ -37,18 +37,18 @@ void WaterZone::check(int degF, int humidity)
 //        return void();
 //    }
 
-//    if( _status == false && degF != 0 && degF < MIN_DEG_TO_WATER ) {
-//        Serial.print("        ");
-//        Serial.print(named);
-//        Serial.println(" Zone is to cold to water.");
-//        return void();
-//    }
+   if( _status == false && degF != 0 && degF < MIN_DEG_TO_WATER ) {
+       Serial.print("        ");
+       Serial.print(named);
+       Serial.println(" Zone is to cold to water.");
+       return void();
+   }
 
-    // int sensorValue = readAnalogreadAnalog(_sensorPin);
-    int sensorValue = 0;
-    if( digitalRead(_sensorPin) == HIGH ) {
-        sensorValue = 987;
-    }
+    int sensorValue = readAnalog(_sensorPin);
+    // int sensorValue = 0;
+    // if( digitalRead(_sensorPin) == HIGH ) {
+    //     sensorValue = 987;
+    // }
 
     _sensorValue = sensorValue;
 
@@ -59,9 +59,9 @@ void WaterZone::check(int degF, int humidity)
 
     int adjustedValue = sensorValue;
 
-//    if(degF != 0 && humidity != 0) {
-//        int adjustedValue = adjustValue(sensorValue, degF, humidity);
-//    }
+    if(degF != 0 && humidity != 0) {
+        adjustedValue = adjustValue(sensorValue, degF, humidity);
+    }
 
     if( adjustedValue < _threshold ) {
         if( _status != true ) {
@@ -135,9 +135,9 @@ int WaterZone::readAnalog(int pin)
 
 String WaterZone::getJson()
 {
-    String json = String("{ 'id': " + id);
-    json += ", 'status': " + _status;
-    json += ", 'sensorValue':" + _sensorValue;
+    String json = String("{ \"id\": " + id);
+    json += ", \"status\": " + _status;
+    json += ", \"sensorValue\":" + _sensorValue;
     json += "}";
 
     return json;
