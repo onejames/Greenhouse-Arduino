@@ -16,8 +16,8 @@ class Greenhouse
     float  batteryVoltage;
     float  solarVoltage;
     void   check();
-    int    getBatteryPercentage();
-    int    getSolarPercentage();
+    float  getBatteryPercentage();
+    float  getSolarVoltage();
     String getJson();
   private:
     int  _batteryVoltagePin;

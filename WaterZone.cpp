@@ -37,31 +37,27 @@ void WaterZone::check(int degF, int humidity)
 //        return void();
 //    }
 
-//    if( _status == false && degF != 0 && degF < MIN_DEG_TO_WATER ) {
-//        Serial.print("        ");
-//        Serial.print(named);
-//        Serial.println(" Zone is to cold to water.");
-//        return void();
-//    }
-
-    // int sensorValue = readAnalogreadAnalog(_sensorPin);
-    int sensorValue = 0;
-    if( digitalRead(_sensorPin) == HIGH ) {
-        sensorValue = 987;
+    if( _status == false && degF != 0 && degF < MIN_DEG_TO_WATER ) {
+        Serial.print("        ");
+        Serial.print(named);
+        Serial.println(" Zone is to cold to water.");
+        return void();
     }
+
+     int sensorValue = readAnalog(_sensorPin);
 
     _sensorValue = sensorValue;
 
-    Serial.print("    ");
-    Serial.print(named);
-    Serial.print(" Moisture Sensor value: ");
-    Serial.println(sensorValue);
-
     int adjustedValue = sensorValue;
 
-//    if(degF != 0 && humidity != 0) {
-//        int adjustedValue = adjustValue(sensorValue, degF, humidity);
-//    }
+    if(degF != 0 && humidity != 0) {
+        int adjustedValue = adjustValue(sensorValue, degF, humidity);
+    }
+
+    Serial.print("    ");
+    Serial.print(named);
+    Serial.print(" Moisture Sensor (adjusted) value: ");
+    Serial.println(adjustedValue);
 
     if( adjustedValue < _threshold ) {
         if( _status != true ) {
@@ -124,7 +120,7 @@ int WaterZone::readAnalog(int pin)
     int sensorValue = 0;
 
     for (int i = 0; i < 10; ++i) {
-        sensorValue + analogRead(pin);
+        sensorValue += analogRead(pin);
         delay(1);
     }
 

@@ -33,21 +33,23 @@ void Greenhouse::readSensors()
 {
   if(_batteryVoltagePin != 0) {
     batteryVoltage = readAnalog(_batteryVoltagePin);
-    Serial.print("Battery Voltage: ");
-    Serial.println(getBatteryPercentage());
+    Serial.print("Battery: ");
+    Serial.print(getBatteryPercentage());
+    Serial.println("%");
   }
 
   if(_solarVoltagePin != 0) {
     solarVoltage = readAnalog(_solarVoltagePin);
-    Serial.print("Solar Voltage: ");
-    Serial.println(getSolarPercentage());
+    Serial.print("Solar: ");
+    Serial.print(getSolarVoltage());
+    Serial.println("V");
   }
 
   //vent status
 
 }
 
-int Greenhouse::getBatteryPercentage()
+float Greenhouse::getBatteryPercentage()
 {
   if( batteryVoltage == 0 ) {
     return 0;
@@ -85,35 +87,30 @@ return 0;
   // 0%	11.80
 }
 
-int Greenhouse::getSolarPercentage()
+float Greenhouse::getSolarVoltage()
 {
   if( solarVoltage == 0 ) {
     return 0;
   }
-  Serial.print("SVOrig: ");
-  Serial.println(solarVoltage);
+
   float org = getOriginalVoltage(solarVoltage, 2000, 1000);
 
   return org;
-  // return org / SOLAR_PANEL_MAX_V;
 }
 
 float Greenhouse::getOriginalVoltage(float vOut, int r1, int r2)
 {
-  float voltage = vOut * (5 / ANALOG_MAX_VALUE);
-
-  return voltage*(r1+r2)/r2;
+  float voltage = vOut * (5.0 / ANALOG_MAX_VALUE);
+  voltage = voltage * ( ( r1 + r2 ) / r2 );
+  return voltage;
 }
 
 int Greenhouse::readAnalog(int pin)
 {
-  // Serial.print("pin: ");
-  // Serial.println(pin);
   int sensorValue = 0;
 
   for (int i = 0; i < 10; ++i) {
-    sensorValue + analogRead(pin);
-    // Serial.println(sensorValue);
+    sensorValue += analogRead(pin);
     delay(1);
   }
 

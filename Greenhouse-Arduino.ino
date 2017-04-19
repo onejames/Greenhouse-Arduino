@@ -6,7 +6,7 @@
 #include "ClimateZone.h"
 #include "Greenhouse.h"
 
-const    int  DELAY_TIME  = 10000;
+const    int  DELAY_TIME  = 20000;
 const    int  JSON_SEND_INTERVAL = 4;
 unsigned long millTime    = 0;
          int  loopCounter = 0;
@@ -36,7 +36,7 @@ void loop()
     loopCounter++;
 
     if(loopCounter == JSON_SEND_INTERVAL) {
-        sendStatus();
+//        sendStatus();
         loopCounter = 0;
     }
 
@@ -48,15 +48,15 @@ void initGreenhouse()
     /* WATER ZONES */
     Vector<WaterZone> cz1Zones;
 
-    // cz1Zones.push_back(WaterZone(1, "Left Primary", A0, 4, 512));
-    cz1Zones.push_back(WaterZone(1, 1, A0, 4, 512));
+    // cz1Zones.push_back(WaterZone(1, "Left Primary", A0, 4, 768));
+    cz1Zones.push_back(WaterZone(1, 1, A0, 4, 768));
 
-    cz1Zones.push_back(WaterZone(2, 2, A0, 7, 512));
-    // cz1Zones.push_back(WaterZone(2, "Right Primary", A1, 7, 512));
+    cz1Zones.push_back(WaterZone(2, 2, A0, 7, 768));
+    // cz1Zones.push_back(WaterZone(2, "Right Primary", A1, 7, 768));
 
     // Vector<WaterZone> cz2Zones;
-    // cz2Zones.push_back(WaterZone(3, 3, A2, 4, 512));
-    // cz2Zones.push_back(WaterZone(3, "Coldframe", A2, 4, 512));
+    // cz2Zones.push_back(WaterZone(3, 3, A2, 4, 768));
+    // cz2Zones.push_back(WaterZone(3, "Coldframe", A2, 4, 768));
 
     /* CLIMATE ZONES*/
     Vector<ClimateZone> climateZones;

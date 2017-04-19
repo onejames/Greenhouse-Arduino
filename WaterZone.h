@@ -14,7 +14,7 @@ class WaterZone
   private:
     int   _sensorPin;
     int   _waterPin;
-    bool  _threshold;
+    int   _threshold;
     bool  _status;
     int   _sensorValue;
     int   _microtimeStarted;
