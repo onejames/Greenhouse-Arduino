@@ -121,12 +121,12 @@ int Greenhouse::readAnalog(int pin)
 
 String Greenhouse::getJson()
 {
-    String json = String("{ 'id': " + id);
-    json += ", 'batteryVoltage': ";
+    String json = String("{ \"id\": " + id);
+    json += ", \"batteryVoltage\": ";
     json += batteryVoltage;
-    json += ", 'solarVoltage':";
+    json += ", \"solarVoltage\":";
     json += solarVoltage;
-    json += ", 'climateZones': {";
+    json += ", \"climateZones\": [";
 
     for (size_t i = 0; i < climateZones.size(); ++i) {
       json += climateZones[i].getJson();
@@ -135,7 +135,7 @@ String Greenhouse::getJson()
       }
     }
 
-    json += "} }";
+    json += "] }";
 
     return json;
 }

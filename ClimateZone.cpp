@@ -30,7 +30,7 @@ void ClimateZone::check()
     Serial.print(named);
     Serial.print(" checking Water Zone: ");
     Serial.println(waterZones[i].named);
-    waterZones[i].check(temprature, humidity);
+    waterZones[i].check(temperature, humidity);
   }
 }
 
@@ -53,14 +53,14 @@ void ClimateZone::readDHT()
 
   if (isnan(event.temperature)) {
     Serial.println("  Error reading temperature!");
-    temprature = 0;
+    temperature = 0;
   }
   else {
     Serial.print("  ");
     Serial.print(named);
     Serial.print(" Temperature: ");
-    temprature = (event.temperature * 1.8 ) + 32;
-    Serial.print(temprature);
+    temperature = (event.temperature * 1.8 ) + 32;
+    Serial.print(temperature);
     Serial.println(" *F");
   }
 
@@ -81,11 +81,11 @@ void ClimateZone::readDHT()
 
 String ClimateZone::getJson()
 {
-    String json = String("{ 'id': " + id);
-    json += ", 'temprature': " + temprature;
-    json += ", 'humidity':" + humidity;
+    String json = String("{ \"id\": " + id);
+    json += ", \"temperature\": " + temperature;
+    json += ", \"humidity\":" + humidity;
 
-    json += ", 'waterZones': {";
+    json += ", \"waterZones\": [";
     for (size_t i = 0; i < waterZones.size(); ++i) {
       json += waterZones[i].getJson();
       if( i + 1 != waterZones.size() ) {
@@ -93,7 +93,7 @@ String ClimateZone::getJson()
       }
     }
 
-    json += "} }";
+    json += "] }";
 
     return json;
 }

@@ -131,9 +131,9 @@ int WaterZone::readAnalog(int pin)
 
 String WaterZone::getJson()
 {
-    String json = String("{ 'id': " + id);
-    json += ", 'status': " + _status;
-    json += ", 'sensorValue':" + _sensorValue;
+    String json = String("{ \"id\": " + id);
+    json += ", \"status\": " + _status;
+    json += ", \"sensorValue\":" + _sensorValue;
     json += "}";
 
     return json;
