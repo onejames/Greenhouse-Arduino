@@ -44,6 +44,9 @@ void Greenhouse::readSensors()
     solarVoltage = readAnalog(_solarVoltagePin);
     Serial.print("Solar - Raw: ");
     Serial.print(solarVoltage);
+    Serial.print(" Calculated Voltage: ");
+    Serial.print( getOriginalVoltage(batteryVoltage, 2000, 1000) );
+    Serial.print(" Percentage: ");
     Serial.print(getSolarVoltage());
     Serial.println("V");
   }
@@ -59,9 +62,7 @@ float Greenhouse::getBatteryPercentage()
   }
 
   float orig = getOriginalVoltage(batteryVoltage, 2000, 1000);
-    Serial.print(" Calculated Voltage: ");
-    Serial.print(orig);
-    Serial.print(" Percentage: ");
+
   if( orig > 12.7) {
     return 100;
   }

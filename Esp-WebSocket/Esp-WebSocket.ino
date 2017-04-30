@@ -65,7 +65,7 @@ void loop() {
         stringComplete = false;
 
         if(expectJson) {
-            postData(line);
+//            postData(line);
             expectJson = false;
         } else if( line == "{EXPECT_JSON}" ) {
             expectJson = true;
@@ -110,13 +110,13 @@ void webSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t lenght
 
 }
 
-void postData(data) {
-    HTTPClient http;
-    http.begin("172.16.0.40", 80, "/rest/vars/set/1/12/999");
-    http.addHeader("Content-Type", "text/json");
-    http.addHeader("Authorization", "Basic dXNlcm5hbWU6cGFzc3dvcmQ=");
-    auto httpCode = http.POST(payload);
-}
+//void postData(String data) {
+//    HTTPClient http;
+//    http.begin("172.16.0.40", 80, "/rest/vars/set/1/12/999");
+//    http.addHeader("Content-Type", "text/json");
+//    http.addHeader("Authorization", "Basic dXNlcm5hbWU6cGFzc3dvcmQ=");
+//    auto httpCode = http.POST(payload);
+//}
 
 void serialEvent() {
     while (Serial.available()) {
