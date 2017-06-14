@@ -18,7 +18,7 @@ WaterZone::WaterZone(int _id, int _named, int sensorPin, int waterPin, int thres
     _threshold    =  threshold;
 
     pinMode(_waterPin, OUTPUT);
-    digitalWrite(_waterPin, LOW);
+    digitalWrite(_waterPin, HIGH);
 
     _status = false;
 }
@@ -44,14 +44,12 @@ void WaterZone::check(int degF, int humidity)
         return void();
     }
 
-     int sensorValue = readAnalog(_sensorPin);
+    _sensorValue = readAnalog(_sensorPin);
 
-    _sensorValue = sensorValue;
-
-    int adjustedValue = sensorValue;
+    int adjustedValue = _sensorValue;
 
     if(degF != 0 && humidity != 0) {
-        int adjustedValue = adjustValue(sensorValue, degF, humidity);
+        int adjustedValue = adjustValue(_sensorValue, degF, humidity);
     }
 
     Serial.print("    ");
@@ -62,17 +60,21 @@ void WaterZone::check(int degF, int humidity)
     if( adjustedValue < _threshold ) {
         if( _status != true ) {
             waterOn();
+        } else {
+            Serial.println("Water already on");
         }
     } else {
         if( _status != false ) {
             waterOff();
+        } else {
+            Serial.println("Water already off");
         }
     }
 }
 
 void WaterZone::waterOn()
 {
-    digitalWrite(_waterPin, HIGH);
+    digitalWrite(_waterPin, LOW);
     _status = true;
     _microtimeStopped = 0;
     _microtimeStarted = millis();
@@ -84,7 +86,7 @@ void WaterZone::waterOn()
 
 void WaterZone::waterOff()
 {
-    digitalWrite(_waterPin, LOW);
+    digitalWrite(_waterPin, HIGH);
     _status = false;
     _microtimeStarted = 0;
     _microtimeStopped = millis();
@@ -125,6 +127,17 @@ int WaterZone::readAnalog(int pin)
     }
 
     sensorValue = sensorValue / 10;
+
+//    for (int i = 0; i < sensorValue; i + 100) {
+//        digitalWrite(13, HIGH);
+//        delay(100);
+//        digitalWrite(13, LOW);
+//        delay(100);
+//    }
+//
+//        digitalWrite(13, HIGH);
+//        delay(1000);
+//        digitalWrite(13, LOW);
 
     return sensorValue;
 }

@@ -49,9 +49,9 @@ void initGreenhouse()
     Vector<WaterZone> cz1Zones;
 
     // cz1Zones.push_back(WaterZone(1, "Left Primary", A0, 4, 768));
-    cz1Zones.push_back(WaterZone(1, 1, A0, 4, 768));
+    cz1Zones.push_back(WaterZone(1, 1, A0, 4, 522));
 
-    cz1Zones.push_back(WaterZone(2, 2, A0, 7, 768));
+    cz1Zones.push_back(WaterZone(2, 2, A1, 7, 522));
     // cz1Zones.push_back(WaterZone(2, "Right Primary", A1, 7, 768));
 
     // Vector<WaterZone> cz2Zones;

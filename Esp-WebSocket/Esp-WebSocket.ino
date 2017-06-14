@@ -39,7 +39,8 @@ void setup() {
     //tries to connect to last known settings
     //if it does not connect it starts an access point with the name
     //and goes into a blocking loop awaiting configuration
-    if (!wifiManager.autoConnect(SSID, PWD)) {
+    if (!wifiManager.autoConnect()) {
+//    if (!wifiManager.autoConnect(SSID, PWD)) {
         Serial.println("Failed to connect to WiFi. Resetting and trying again.");
         delay(3000);
         ESP.reset();
